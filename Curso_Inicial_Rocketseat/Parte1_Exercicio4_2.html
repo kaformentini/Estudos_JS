@@ -1,0 +1,69 @@
+<html>
+    <header></header>
+
+    <body>
+        <div>
+            <input type="text" name="git_user" , placeholder="Usuário GitHub">
+            <button>Pesquisar</button>
+        </div>
+
+    </body>
+    <script>
+        function searchUser(git_user) {
+
+            return new Promise(function (resolve, reject) {
+                var xhr = new XMLHttpRequest()
+                xhr.open('GET', `https://api.github.com/users/${git_user}/repos`)
+                // xhr.open('GET', `https://api.github.com/users/kaformentini/repos`)
+                xhr.send(null)
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            resolve({ reposList: JSON.parse(xhr.responseText), username: git_user })  //resolve só passa um argumento, então para obter o nome, passou-se um objeto
+                        } else {
+                            reject('Erro')
+                        }
+                    }
+                }
+            })
+        }
+
+        let buttonSearch = document.querySelector("div button");
+        let inputText = document.querySelector("div input");
+
+        buttonSearch.onclick = function () {
+            let username = inputText.value
+            searchUser(username)
+                .then(function (response) {
+
+                    renderRepos(response.reposList, response.username)
+                })
+                .catch(function (error) {
+                    console.warn(error)
+                })
+        }
+
+        function renderRepos(reposList, username) {
+
+            let usernameElement = document.createElement("p");
+            let usernameText = document.createTextNode(`Repositórios de ${username}`)
+            usernameElement.appendChild(usernameText);
+
+            let reposListElement = document.createElement("ul");
+
+            let div = document.querySelector("div");
+            div.appendChild(usernameElement);
+            div.appendChild(reposListElement);
+
+            for (let repo of reposList) {
+                let itemElement = document.createElement("li");
+                let textElement = document.createTextNode(repo.name);
+
+                itemElement.appendChild(textElement);
+                reposListElement.appendChild(itemElement);
+            }
+        }
+    </script>
+
+</html>

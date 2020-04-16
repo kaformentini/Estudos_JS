@@ -1,0 +1,79 @@
+<html>
+    <head>
+        <title>Curso</title>
+    </head>
+    <body>
+        
+        <script>
+
+            function exercicio1_exibe_endereco(endereco) {
+                return `O usuário mora em ${endereco.cidade} / ${endereco.uf}, no bairro ${endereco.bairro}, na rua "${endereco.rua}" com
+nº ${endereco.numero}.`
+            };
+
+            var endereco = {
+                rua: "Rua dos pinheiros",
+                numero: 1293,
+                bairro: "Centro",
+                cidade: "São Paulo",
+                uf: "SP"
+            };
+
+            var alunos = [
+                {
+                    name: "Pablo",
+                    skills: ["Javascript", "ReactJS", "React Native"],
+                    anos_experiencia: 6
+                },
+                {
+                    name: "Karina",
+                    skills: ["ReactJS", "React Native"],
+                    anos_experiencia: 7
+                }
+            ]
+
+
+            function exercicio2_pares (num1, num2) {
+                pares = []
+                for (var i = num1; i <= num2; i++){
+                    if (i % 2 == 0) {
+                        pares.push(i)
+                    }
+                }
+                return pares
+            }
+
+            function exercicio3_habilidades (aluno, skill) {
+                return aluno.skills.find(function (item) { return item === skill }) 
+            }
+
+            function exercicio4_experiencia(anos) {
+                if (anos <=1){
+                    return "Iniciante" 
+                } else if (anos > 1 && anos <= 3) {
+                    return "Intermediário"
+                } else if (anos > 3 && anos <= 6) {
+                    return "Avançado"
+                } else {
+                    return "Jedi Master"
+                }
+            }
+
+            function exercicio5_exibe(alunos){
+                for (let aluno of alunos) {
+                    console.log(`O ${aluno.name} possui as habilidades: ${aluno.skills.join(", ")}`)
+                    // O Diego possui as habilidades: Javascript, ReactJS, Redux
+                } 
+            }
+
+            console.log(exercicio1_exibe_endereco(endereco));
+            console.log(exercicio2_pares(1, 50))
+            console.log(exercicio2_pares(1, 50).join(', '))
+            console.log(alunos[0].skills)
+            console.log(exercicio3_habilidades(alunos[0], "Javascript"))
+            console.log(exercicio4_experiencia(alunos[0].anos_experiencia))
+            console.log(exercicio4_experiencia(alunos[1].anos_experiencia))
+            console.log(exercicio5_exibe(alunos))
+        </script>
+    </body>
+</html>

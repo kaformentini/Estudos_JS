@@ -1,0 +1,66 @@
+<html>
+  <head> </head>
+
+  <body>
+    <div id="bla">
+      <input type="text" name="nome" />
+      <button class="botao">Adicionar nome</button>
+    </div>
+  </body>
+
+  <script>
+    let namesList = JSON.parse(localStorage.getItem("list_names")) || [];
+    let lista = document.createElement("ul");
+
+    let botao = document.querySelector("#bla .botao");
+    let inputText = document.querySelector("#bla input[name=nome]");
+
+    botao.onclick = function() {
+      let textInputValue = inputText.value;
+      namesList.push(textInputValue);
+      inputText.value = "";
+      renderLista();
+      saveItensStorage();
+    };
+
+    renderLista();
+
+    function renderLista() {
+      lista.innerHTML = "";
+
+      let div = document.querySelector("#bla");
+      div.appendChild(lista);
+
+      for (let nome of namesList) {
+        let item = document.createElement("li");
+        let text = document.createTextNode(nome);
+
+        item.appendChild(text);
+        lista.appendChild(item);
+
+        let excluirElement = document.createElement("a");
+        excluirElement.setAttribute("href", "#");
+        let textExcluir = document.createTextNode("Excluir");
+
+        excluirElement.appendChild(textExcluir);
+        item.appendChild(excluirElement);
+
+        let positionItem = namesList.indexOf(nome);
+        excluirElement.setAttribute(
+          "onclick",
+          `deleteItemList( ${positionItem} )`
+        );
+      }
+    }
+
+    function deleteItemList(positionItem) {
+      namesList.splice(positionItem, 1);
+      renderLista();
+      saveItensStorage();
+    }
+
+    function saveItensStorage() {
+      localStorage.setItem("list_names", JSON.stringify(namesList));
+    }
+  </script>
+</html>

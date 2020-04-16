@@ -1,0 +1,42 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <div id="bla">
+        <button class="add">Clique</button>
+
+    </div>
+
+</body>
+
+<script>
+    var botao = document.querySelector("#bla .add")
+    botao.onclick = function() {
+        var quadrado = document.createElement("div")
+
+        quadrado.style.width = 100
+        quadrado.style.height = 100
+        quadrado.style.backgroundColor = 'red'
+
+        document.querySelector("#bla").appendChild(quadrado)
+
+        quadrado.onmouseover = function() {
+            quadrado.style.backgroundColor = getRandomColor()
+        }
+    }
+
+    function getRandomColor() {
+        var letters = "0123456789ABCDEF";
+        var color = "#";
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+    
+</script>
+
+</html>
