@@ -4,7 +4,7 @@ import "./styles.css";
 import { Link } from 'react-router-dom'
 
 
-export default class Main extends Component {
+export default class Main extends    {
   state = {
     products: [],
     productInfo: {},
